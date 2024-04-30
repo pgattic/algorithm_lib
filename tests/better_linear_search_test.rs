@@ -1,5 +1,5 @@
 
-mod algorithm_lib_tests {
+mod linear_search_test {
     use algorithm_lib::BetterLinearSearch;
 
     #[test]
