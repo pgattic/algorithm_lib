@@ -2,6 +2,7 @@
 pub struct QuickSort;
 
 impl QuickSort {
+    /// Simple Quick Sort algorithm
     pub fn quick_sort<T: Ord>(data: &mut [T]) {
         if data.len() <= 1 {
             return // Base case: list of 1 is trivially sorted
@@ -13,7 +14,7 @@ impl QuickSort {
     }
 
     fn partition<T: Ord>(data: &mut [T]) -> usize {
-        let pivot = data.len()-1; // Using the last item as the pivot. Any index would work.
+        let pivot = data.len()-1; // Using the last item as the pivot.
         let mut lmgp = 0; // Left-Most Greater than Pivot
 
         for i in 0..pivot {
