@@ -2,7 +2,7 @@
 #[derive(Clone)]
 pub struct Edge {
     pub dest_id: usize,
-    pub weight: Option<i32>,
+    pub weight: f64,
 }
 
 pub struct Graph {
@@ -11,8 +11,6 @@ pub struct Graph {
 }
 
 impl Graph {
-    //pub const INF: i32 = i32::MAX;
-
     pub fn new(size: usize) -> Self {
         Graph {
             graph: vec![Vec::new(); size],
@@ -20,13 +18,14 @@ impl Graph {
         }
     }
 
-    pub fn add_directed_edge(&mut self, src_id: usize, dest_id: usize, weight: i32) {
-        let new_edge = Edge{dest_id, weight: Some(weight)};
+    /// Add a directed edge
+    pub fn add_directed_edge(&mut self, src_id: usize, dest_id: usize, weight: f64) {
+        let new_edge = Edge{dest_id, weight};
         self.graph[src_id].push(new_edge);
     }
     
-    /// Add two directed edges
-    pub fn add_undirected_edge(&mut self, src_id: usize, dest_id: usize, weight: i32) {
+    /// Add an undirected edge (two directed edges)
+    pub fn add_undirected_edge(&mut self, src_id: usize, dest_id: usize, weight: f64) {
         self.add_directed_edge(src_id, dest_id, weight);
         self.add_directed_edge(dest_id, src_id, weight);
     }
