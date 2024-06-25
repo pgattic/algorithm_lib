@@ -9,3 +9,4 @@ name = "algorithm_lib"
 path = "src/lib.rs"
 
 [dependencies]
+num-bigint = "0.4.5"
