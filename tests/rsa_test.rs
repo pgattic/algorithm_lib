@@ -1,4 +1,5 @@
 
+#[cfg(test)]
 mod rsa_test {
     use num_bigint::BigInt;
     use algorithm_lib::RSA;
@@ -22,7 +23,6 @@ mod rsa_test {
         let r = (p-1) * (q-1);
         let e = BigInt::from(5);
         let (gcd, i, j) = RSA::euclid(&e, &r);
-        println!("{} {} {}", gcd, i, j);
 
         assert_eq!(gcd, BigInt::from(1));
         assert_eq!(i, BigInt::from(29));
@@ -36,7 +36,6 @@ mod rsa_test {
         let r = (p-1) * (q-1);
         let e = BigInt::from(65537);
         let (gcd, i, j) = RSA::euclid(&e, &r);
-        println!("{} {} {}", gcd, i, j);
 
         assert_eq!(gcd, BigInt::from(1));
         assert_eq!(i, BigInt::from(-691197798001282429727 as i128));
@@ -58,7 +57,7 @@ mod rsa_test {
         let p = BigInt::from(87178291199 as i128);
         let q = BigInt::from(22815088913 as i128);
         let e = BigInt::from(65537); // relatively prime to (p-1)*(q-1)
-        let n = p.clone() * q.clone();
+        let n = p * q;
         let value = BigInt::from(42);
         //let private_key = RSA::generate_private_key(&p, &q, &e);
         let encrypted = RSA::encrypt(&value, &e, &n);
@@ -70,7 +69,7 @@ mod rsa_test {
         let p = BigInt::from(87178291199 as i128);
         let q = BigInt::from(22815088913 as i128);
         let e = BigInt::from(65537); // relatively prime to (p-1)*(q-1)
-        let n = p.clone() * q.clone();
+        let n = &p * &q;
         let value = BigInt::from(42);
         let private_key = RSA::generate_private_key(&p, &q, &e);
         let encrypted = RSA::encrypt(&value, &e, &n);

@@ -58,25 +58,16 @@ mod dag_shortest_path_test {
         g.add_directed_edge(6, 8, 7.0);
         g.add_directed_edge(7, 8, 5.0);
 
-        let (pred, distance) = DAG::shortest_path(&g, 2);
-        assert_eq!(distance[0], None);
-        assert_eq!(distance[1], None);
-        assert_eq!(distance[2], Some(0.0));
-        assert_eq!(distance[3], None);
-        assert_eq!(distance[4], None);
-        assert_eq!(distance[5], Some(5.0));
-        assert_eq!(distance[6], Some(8.0));
-        assert_eq!(distance[7], None);
-        assert_eq!(distance[8], Some(15.0));
-        assert_eq!(pred[0], None);
-        assert_eq!(pred[1], None);
-        assert_eq!(pred[2], None);
-        assert_eq!(pred[3], None);
-        assert_eq!(pred[4], None);
-        assert_eq!(pred[5], Some(2));
-        assert_eq!(pred[6], Some(5));
-        assert_eq!(pred[7], None);
-        assert_eq!(pred[8], Some(6));
+        let result = DAG::shortest_path(&g, 2);
+        assert_eq!(result[0], None);
+        assert_eq!(result[1], None);
+        assert_eq!(result[2], Some((2, 0.0)));
+        assert_eq!(result[3], None);
+        assert_eq!(result[4], None);
+        assert_eq!(result[5], Some((2, 5.0)));
+        assert_eq!(result[6], Some((5, 8.0)));
+        assert_eq!(result[7], None);
+        assert_eq!(result[8], Some((6, 15.0)));
     }
 
     #[test]
@@ -98,19 +89,13 @@ mod dag_shortest_path_test {
         g.add_directed_edge(3, 4, -1.0);
         g.add_directed_edge(3, 5, 1.0);
         g.add_directed_edge(4, 5, -2.0);
-        let (pred, distance) = DAG::shortest_path(&g, 1);
-        assert_eq!(distance[0], None);
-        assert_eq!(distance[1], Some(0.0));
-        assert_eq!(distance[2], Some(2.0));
-        assert_eq!(distance[3], Some(6.0));
-        assert_eq!(distance[4], Some(5.0));
-        assert_eq!(distance[5], Some(3.0));
-        assert_eq!(pred[0], None);
-        assert_eq!(pred[1], None);
-        assert_eq!(pred[2], Some(1));
-        assert_eq!(pred[3], Some(1));
-        assert_eq!(pred[4], Some(3));
-        assert_eq!(pred[5], Some(4));
+        let result = DAG::shortest_path(&g, 1);
+        assert_eq!(result[0], None);
+        assert_eq!(result[1], Some((1, 0.0)));
+        assert_eq!(result[2], Some((1, 2.0)));
+        assert_eq!(result[3], Some((1, 6.0)));
+        assert_eq!(result[4], Some((3, 5.0)));
+        assert_eq!(result[5], Some((4, 3.0)));
     }
 }
 

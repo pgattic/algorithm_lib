@@ -18,7 +18,7 @@ impl RSA {
     //fn modular_exponentiation(x: &BigInt, y: &BigInt, n: &BigInt) -> BigInt {
     //    if *y == BigInt::from(0) {
     //        return BigInt::from(1);
-    //    } else if y % BigInt::from(2) == BigInt::from(0) {
+    //    } else if !y.bit(0) {
     //        let z = Self::modular_exponentiation(x, &(y/2), n);
     //        return z.pow(2) % n
     //    }

@@ -1,14 +1,14 @@
 
 pub mod better_linear_search;
 pub mod binary_search;
+pub mod convex_hull;
 pub mod dag_shortest_path;
-pub mod rsa;
 pub mod graph;
 pub mod huffman_tree;
-pub mod priority_queue;
-pub mod string_matcher;
 pub mod merge_sort;
 pub mod quick_sort;
+pub mod rsa;
+pub mod string_matcher;
 
 // Re-export BetterLinearSearch so it's available at the top level.
 pub use better_linear_search::BetterLinearSearch;

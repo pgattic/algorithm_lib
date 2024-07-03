@@ -41,30 +41,28 @@ impl DAG {
     }
 
     /// Get the shortest path to every other accessible node in the graph from the start vertex
-    pub fn shortest_path(graph: &Graph, start: usize) -> (Vec<Option<usize>>, Vec<Option<f64>>) {
-        // Will have to first sort the graph
+    pub fn shortest_path(graph: &Graph, start: usize) -> Vec<Option<(usize, f32)>> {
+        // Will have to first topologically sort the graph
         let vert_sort = Self::sort(&graph);
 
-        // The item order of these two is to remain consistent
-        let mut shortest = vec![None; graph.size()];
-        let mut pred = vec![None; graph.size()];
-        shortest[start] = Some(0.0);
+        let mut result = vec![None; graph.size()];
+        result[start] = Some((start, 0.0));
+
         for v in vert_sort {
-            if let Some(v_dist) = shortest[v] {
+            if let Some((_v_pred, v_dist)) = result[v] {
+                // Relax the vertex
                 for edge in graph.edges(v) {
-                    if let Some(e_dist) = shortest[edge.dest_id] {
+                    if let Some((_e_pred, e_dist)) = result[edge.dest_id] {
                         if edge.weight + v_dist < e_dist {
-                            shortest[edge.dest_id] = Some(edge.weight + v_dist);
-                            pred[edge.dest_id] = Some(v);
+                            result[edge.dest_id] = Some((v, edge.weight + v_dist));
                         }
                     } else {
-                        shortest[edge.dest_id] = Some(edge.weight + v_dist);
-                        pred[edge.dest_id] = Some(v);
+                        result[edge.dest_id] = Some((v, edge.weight + v_dist));
                     }
                 }
             }
         }
-        (pred, shortest)
+        result
     }
 }
 
