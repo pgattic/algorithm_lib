@@ -6,6 +6,7 @@ pub struct DAG;
 
 impl DAG {
     /// Get the ids of the Graph's nodes in topological order. Assumes a directed Graph.
+    /// Time complexity: $O(N)$ where N is the total number of edges
     pub fn sort(graph: &Graph) -> Vec<usize> {
         // Count the references made to each vertex
         let mut ref_count: Vec<usize> = vec![0; graph.size()];
@@ -41,6 +42,7 @@ impl DAG {
     }
 
     /// Get the shortest path to every other accessible node in the graph from the start vertex
+    /// Time complexity: $O(N)$
     pub fn shortest_path(graph: &Graph, start: usize) -> Vec<Option<(usize, f32)>> {
         // Will have to first topologically sort the graph
         let vert_sort = Self::sort(&graph);

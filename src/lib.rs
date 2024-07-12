@@ -1,9 +1,10 @@
 
+pub mod bellman_ford;
 pub mod better_linear_search;
 pub mod binary_search;
 pub mod convex_hull;
 pub mod dag_shortest_path;
-pub mod dijkstra_shortest_path;
+pub mod dijkstra;
 pub mod graph;
 pub mod huffman_tree;
 pub mod merge_sort;
@@ -13,9 +14,11 @@ pub mod rsa;
 pub mod string_matcher;
 
 // Re-export BetterLinearSearch so it's available at the top level.
+pub use bellman_ford::BellmanFord;
 pub use better_linear_search::BetterLinearSearch;
 pub use binary_search::BinarySearch;
 pub use dag_shortest_path::DAG;
+pub use dijkstra::Dijkstra;
 pub use graph::Graph;
 pub use huffman_tree::TreeNode;
 pub use huffman_tree::NodeContent;

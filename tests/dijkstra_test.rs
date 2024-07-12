@@ -1,6 +1,6 @@
 
-mod dijkstra_shortest_path_test {
-    use algorithm_lib::{dijkstra_shortest_path::DijkstraShortestPath, graph::Graph};
+mod dijkstra_test {
+    use algorithm_lib::{Dijkstra, graph::Graph};
 
     #[test]
     fn test1_graph1() {
@@ -20,7 +20,7 @@ mod dijkstra_shortest_path_test {
         g.add_directed_edge(3, 4, 3.0);
         g.add_directed_edge(4, 2, 5.0);
         g.add_directed_edge(4, 0, 7.0);
-        let (distance, pred) = DijkstraShortestPath::shortest_path(&g, 1);
+        let (distance, pred) = Dijkstra::shortest_path(&g, 1);
         assert_eq!(distance[0], Some(12.0));
         assert_eq!(distance[1], Some(0.0));
         assert_eq!(distance[2], Some(3.0));
@@ -49,7 +49,7 @@ mod dijkstra_shortest_path_test {
         g.add_directed_edge(2, 4, 3.0);
         g.add_directed_edge(3, 2, 1.0);
         g.add_directed_edge(4, 0, 4.0);
-        let (distance, pred) = DijkstraShortestPath::shortest_path(&g, 0);
+        let (distance, pred) = Dijkstra::shortest_path(&g, 0);
         assert_eq!(distance[0], Some(0.0));
         assert_eq!(distance[1], Some(4.0));
         assert_eq!(distance[2], Some(8.0));
