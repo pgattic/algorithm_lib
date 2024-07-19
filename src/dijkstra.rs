@@ -3,12 +3,11 @@ use crate::{graph_heap::GraphHeap, Graph};
 pub struct Dijkstra;
 
 impl Dijkstra {
-    pub fn shortest_path(g: &Graph, start_vertex: usize) -> (Vec<Option<f32>>, Vec<Option<usize>>) {
+    pub fn shortest_path(g: &Graph, start_vertex: usize) -> Vec<Option<(usize, f32)>> {
 
         // Initialize Shortest and Predecessor
-        let mut shortest = vec![None; g.size()];
-        let mut pred = vec![None; g.size()];
-        shortest[start_vertex] = Some(0.0);
+        let mut result = vec![None; g.size()];
+        result[start_vertex] = Some((start_vertex, 0.0));
 
         // Graph heap will keep the data sorted. Start with the start_vertex at 0 (first element)
         // and the rest of the nodes at infinity (end of the queue)
@@ -22,20 +21,19 @@ impl Dijkstra {
 
         while q.size() > 0 {
             // Pop the item with the smallest total distance from the start_vertex
-            let u = q.dequeue().unwrap();
+            let vertex = q.dequeue().unwrap();
             // Relax its edges
-            for edge in g.edges(u) {
-                if let Some(alt) = shortest[u] {
+            for edge in g.edges(vertex) {
+                if let Some((_, alt)) = result[vertex] {
                     let alt = alt + edge.weight;
-                    if alt < shortest[edge.dest_id].unwrap_or(std::f32::INFINITY) {
-                        shortest[edge.dest_id] = Some(alt);
-                        pred[edge.dest_id] = Some(u);
+                    if alt < result[edge.dest_id].unwrap_or((0, std::f32::INFINITY)).1 {
+                        result[edge.dest_id] = Some((vertex, alt));
                         q.enqueue(edge.dest_id, alt);
                     }
                 }
             }
         }
-        (shortest, pred)
+        result
     }
 }
 

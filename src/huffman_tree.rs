@@ -3,11 +3,13 @@ use std::collections::BinaryHeap;
 use std::cmp::Ordering;
 use bitvec::prelude::BitVec;
 
+#[derive(Debug)]
 pub struct TreeNode {
     pub content: NodeContent,
     pub count: usize,
 }
 
+#[derive(Debug)]
 pub enum NodeContent {
     Character(char),
     Children(Box<TreeNode>, Box<TreeNode>),
@@ -48,7 +50,7 @@ impl TreeNode {
     }
 }
 
-pub fn profile(text: &str) -> HashMap<char, usize> {
+fn profile(text: &str) -> HashMap<char, usize> {
     let mut p = HashMap::new();
     for letter in text.chars() {
         if p.contains_key(&letter) {
@@ -60,7 +62,8 @@ pub fn profile(text: &str) -> HashMap<char, usize> {
     p
 }
 
-pub fn build_tree(profile: &HashMap<char, usize>) -> TreeNode {
+pub fn build_tree(text: &str) -> TreeNode {
+    let profile = self::profile(text);
     let mut pq = BinaryHeap::new();
     for ch in profile.keys() {
         let node = TreeNode::new_leaf(*ch, *profile.get(ch).unwrap());

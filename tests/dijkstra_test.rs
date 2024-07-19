@@ -20,17 +20,12 @@ mod dijkstra_test {
         g.add_directed_edge(3, 4, 3.0);
         g.add_directed_edge(4, 2, 5.0);
         g.add_directed_edge(4, 0, 7.0);
-        let (distance, pred) = Dijkstra::shortest_path(&g, 1);
-        assert_eq!(distance[0], Some(12.0));
-        assert_eq!(distance[1], Some(0.0));
-        assert_eq!(distance[2], Some(3.0));
-        assert_eq!(distance[3], Some(2.0));
-        assert_eq!(distance[4], Some(5.0));
-        assert_eq!(pred[0], Some(4));
-        assert_eq!(pred[1], None);
-        assert_eq!(pred[2], Some(1));
-        assert_eq!(pred[3], Some(1));
-        assert_eq!(pred[4], Some(3));
+        let result = Dijkstra::shortest_path(&g, 1);
+        assert_eq!(result[0], Some((4, 12.0)));
+        assert_eq!(result[1], Some((1, 0.0)));
+        assert_eq!(result[2], Some((1, 3.0)));
+        assert_eq!(result[3], Some((1, 2.0)));
+        assert_eq!(result[4], Some((3, 5.0)));
     }
     
     #[test]
@@ -49,17 +44,12 @@ mod dijkstra_test {
         g.add_directed_edge(2, 4, 3.0);
         g.add_directed_edge(3, 2, 1.0);
         g.add_directed_edge(4, 0, 4.0);
-        let (distance, pred) = Dijkstra::shortest_path(&g, 0);
-        assert_eq!(distance[0], Some(0.0));
-        assert_eq!(distance[1], Some(4.0));
-        assert_eq!(distance[2], Some(8.0));
-        assert_eq!(distance[3], Some(7.0));
-        assert_eq!(distance[4], Some(11.0));
-        assert_eq!(pred[0], None);
-        assert_eq!(pred[1], Some(0));
-        assert_eq!(pred[2], Some(3));
-        assert_eq!(pred[3], Some(0));
-        assert_eq!(pred[4], Some(2));
+        let result = Dijkstra::shortest_path(&g, 0);
+        assert_eq!(result[0], Some((0, 0.0)));
+        assert_eq!(result[1], Some((0, 4.0)));
+        assert_eq!(result[2], Some((3, 8.0)));
+        assert_eq!(result[3], Some((0, 7.0)));
+        assert_eq!(result[4], Some((2, 11.0)));
     }
 }
 
