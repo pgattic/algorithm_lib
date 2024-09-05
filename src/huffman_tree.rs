@@ -50,6 +50,7 @@ impl TreeNode {
     }
 }
 
+/// Create a frequency profile for the characters comprising a string of text.
 fn profile(text: &str) -> HashMap<char, usize> {
     let mut p = HashMap::new();
     for letter in text.chars() {
@@ -62,6 +63,8 @@ fn profile(text: &str) -> HashMap<char, usize> {
     p
 }
 
+/// Build a binary search tree based on the relative frequency of characters.
+/// Keeps the most frequent characters closest to the root.
 pub fn build_tree(text: &str) -> TreeNode {
     let profile = self::profile(text);
     let mut pq = BinaryHeap::new();
@@ -78,6 +81,9 @@ pub fn build_tree(text: &str) -> TreeNode {
     pq.pop().unwrap()
 }
 
+/// Creates a mapping from a character to its corresponding tree traversal.
+/// Used in order to reduce the time complexity for the compression algorithm.
+/// Time Complexity: `O(n)`, where `n` is the number of unique characters in the tree
 pub fn create_encoding_map(root: &TreeNode) -> HashMap<char, BitVec> {
     // The HashMap maps characters to bit vecs
     let mut map = HashMap::new();
@@ -101,7 +107,8 @@ fn _create_encoding_map(node: &TreeNode, code: BitVec, map: &mut HashMap<char, B
     }
 }
 
-/// Encode a string of text into a bit vector
+/// Encode a string of text into a bit vector according to the encoding map
+/// Time Complexity: `O(n)`, where `n` is the length of the string
 pub fn encode(text: &str, map: &HashMap<char, BitVec>) -> Option<BitVec> {
     let mut result = BitVec::new();
     for letter in text.chars() {
@@ -115,6 +122,7 @@ pub fn encode(text: &str, map: &HashMap<char, BitVec>) -> Option<BitVec> {
 }
 
 /// Decode a huffman-coded bit vector, using a huffman tree
+/// Time complexity: `O(n)` where `n` is the length of the BitVec `data`
 pub fn decode(data: &BitVec, tree: &TreeNode) -> Option<String> {
     let mut result = String::new();
     let mut curr = tree;
