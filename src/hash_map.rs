@@ -47,15 +47,6 @@ impl<A: Clone> HashMap<A> {
 }
 
 fn hash(str: &str) -> usize {
-    sum_chars(str) % 256
-}
-
-fn sum_chars(str: &str) -> usize {
-    str.chars().map(key_code).sum()
-}
-
-fn key_code(ch: char) -> usize {
-    let ch_32: u32 = ch.into();
-    ch_32 as usize
+    str.bytes().sum::<u8>() as usize % 256
 }
 
