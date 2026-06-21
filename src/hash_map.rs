@@ -36,10 +36,10 @@ impl<A: Clone> HashMap<A> {
 
     pub fn remove(&mut self, key: String) -> Option<A> {
         let hashed = hash(&key);
-        for (i, (m_key, m_val)) in (&self.entries[hashed].clone()).iter().enumerate() {
+        let bucket = &mut self.entries[hashed];
+        for (i, (m_key, _)) in bucket.iter().enumerate() {
             if *m_key == key {
-                let _ = &self.entries[hashed].remove(i);
-                return Some(m_val.clone());
+                return Some((*bucket).remove(i).1);
             }
         }
         None
@@ -47,6 +47,6 @@ impl<A: Clone> HashMap<A> {
 }
 
 fn hash(str: &str) -> usize {
-    str.bytes().sum::<u8>() as usize % 256
+    (str.bytes().fold(0, |a: usize, b| a.wrapping_add(b as usize))) % 256
 }
 
