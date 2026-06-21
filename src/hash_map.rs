@@ -1,13 +1,15 @@
 
+const NUM_BUCKETS: usize = 256;
+
 /// Custom Hash Map implementation
 pub struct HashMap<A> {
-    entries: [Vec<(String, A)>; 256],
+    entries: [Vec<(String, A)>; NUM_BUCKETS],
 }
 
 impl<A: Clone> HashMap<A> {
     pub fn new() -> Self {
         Self {
-            entries: [const { Vec::new() }; 256],
+            entries: [const { Vec::new() }; NUM_BUCKETS],
         }
     }
 
@@ -47,6 +49,6 @@ impl<A: Clone> HashMap<A> {
 }
 
 fn hash(str: &str) -> usize {
-    (str.bytes().fold(0, |a: usize, b| a.wrapping_add(b as usize))) % 256
+    (str.bytes().fold(0usize, |a, b| a.wrapping_add(b as usize))) % NUM_BUCKETS
 }
 

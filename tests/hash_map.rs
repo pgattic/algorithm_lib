@@ -17,6 +17,15 @@ mod hash_map_tests {
     }
 
     #[test]
+    fn key_removal() {
+        let mut my_map: HashMap<&str> = HashMap::new();
+        my_map.insert("Preston".to_string(), "Corless");
+        let val = my_map.remove("Preston".to_string());
+        assert_eq!(my_map.get("Preston".to_string()), None);
+        assert_eq!(val, Some("Corless"));
+    }
+
+    #[test]
     fn hash_collision() {
         let mut my_map: HashMap<&str> = HashMap::new();
         my_map.insert("Preston".to_string(), "Corless");
